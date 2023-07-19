@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Keywords
-  class UploadController < ApplicationController
+  class UploadsController < ApplicationController
     def show; end
 
     def update; end
