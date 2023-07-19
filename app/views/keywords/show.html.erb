@@ -1,2 +1,24 @@
-<h1>Keywords#show</h1>
-<p>Find me in app/views/keywords/show.html.erb</p>
+<li>
+  <%= link_to "Back", keywords_path %>
+</li>
+<h1><%= @keyword.word %></h1>
+<p>
+  Scraped At:
+  <%= time_tag @keyword.updated_at %>
+<p>
+<ul>
+  <li>
+    <strong>Total Adwords</strong> <span><%= @keyword.total_adword %></span>
+  </li>
+  <li>
+    <strong>Total Links</strong> <span><%= @keyword.total_link %></span>
+  </li>
+  <li>
+    <strong>Total Results</strong> <span><%= @keyword.total_result %></span>
+  </li>
+  <li>
+    <strong>Total Search Times</strong> <span><%= @keyword.total_search_time %></span>
+  </li>
+
+  <%= @keyword.html %>
+</ul>
