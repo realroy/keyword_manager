@@ -1,6 +1,9 @@
-<h1>Keywords::Upload#show</h1>
-<p>Find me in app/views/keywords/upload/show.html.erb</p>
+<h1>Upload keyword</h1>
+<p>
+  Upload keywords seperate by new line
+</p>
+
 <%= form_with url: keywords_upload_path, method: :put, multipart: true do |form| %>
-  <%= form.file_field 'file', required: true %>
+  <%= form.file_field :"uploads[file]", required: true %>
   <%= form.submit 'Upload' %>
 <% end %>
