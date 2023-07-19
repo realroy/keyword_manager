@@ -1,6 +1,9 @@
-<h1>Upload keyword</h1>
+<div>
+  <%= link_to "Back", keywords_path %>
+  <h1>Upload Keywords</h1>
+</div>
 <p>
-  Upload keywords seperate by new line
+  Instruction: Each keywords must be seperated by new line
 </p>
 
 <%= form_with url: keywords_upload_path, method: :put, multipart: true do |form| %>
