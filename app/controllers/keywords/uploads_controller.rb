@@ -45,7 +45,7 @@ module Keywords
 
     def scrape(keyword)
       p "start scraping for #{keyword.word}"
-      Puppeteer.launch(headless: false) do |browser|
+      Puppeteer.launch(headless: true) do |browser|
         page = browser.new_page
         page.viewport = Puppeteer::Viewport.new(width: 1280, height: 800)
 
