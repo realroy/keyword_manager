@@ -210,6 +210,10 @@ GEM
       language_server-protocol (~> 3.17.0)
       sorbet-runtime
       syntax_tree (>= 6.1.1, < 7)
+    ruby-lsp-rails (0.2.2)
+      rails (>= 6.0)
+      ruby-lsp (>= 0.6.2, < 0.8.0)
+      sorbet-runtime (>= 0.5.9897)
     ruby-progressbar (1.13.0)
     rubyzip (2.3.2)
     selenium-webdriver (4.10.0)
@@ -272,6 +276,7 @@ DEPENDENCIES
   rails (~> 7.0.6)
   rubocop-rails
   ruby-lsp
+  ruby-lsp-rails
   selenium-webdriver
   sprockets-rails
   stimulus-rails
