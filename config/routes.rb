@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :keywords, only: %w[index show]
+  namespace :keywords do
+    resource :upload, only: %w[show update]
+  end
 
   root 'keywords#index'
 end
