@@ -4,5 +4,21 @@
 <% else %>
   <%= button_to "Sign in", new_user_session_path %> 
 <% end %>
-<h1>Keywords#index</h1>
-<p>Find me in app/views/keywords/index.html.erb</p>
+<h1>Keywords</h1>
+
+<%= form_with url: keywords_path, method: :get do |form| %>
+  <%= form.label :q, "Search" %>
+  <%= form.text_field :q, placeholder: "Searching for keyword", type: :search, value: @q %>
+  <%= form.submit "Search" %>
+<% end %>
+
+<% if @keywords.empty? %>
+  <div>
+    No keywords found.
+    <%= link_to "Upload keywords", keywords_upload_path if @q.nil? %>
+  </div>
+<% else %>
+  <ul>
+    <%= render @keywords %>
+  </ul>
+<% end %>
