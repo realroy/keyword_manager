@@ -1,4 +1,7 @@
-<h1>Keywords</h1>
+<div>
+  <h1>Keywords</h1>
+  <%= link_to "Upload keywords", keywords_upload_path %>
+</div>
 
 <%= form_with url: keywords_path, method: :get do |form| %>
   <%= form.label :q, "Search" %>
