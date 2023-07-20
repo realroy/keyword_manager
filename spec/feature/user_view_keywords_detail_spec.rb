@@ -21,11 +21,10 @@ describe 'User view keywords detail', type: :feature do
   context 'when keyword is not found' do
     before do
       login_as(user)
-      visit keyword_path(-1)
     end
 
     it 'should render not found' do
-      expect(page).to have_content('No keyword found.')
+      expect { visit keyword_path(-1) }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
