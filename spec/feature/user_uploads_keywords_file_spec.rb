@@ -19,7 +19,7 @@ describe 'User upload keywords file', type: :feature do
       visit keywords_upload_path
     end
 
-    it 'should show error message' do
+    it 'should redirect to keywords path' do
       within("form[action=\"#{keywords_upload_path}\"]") do
         attach_file 'uploads[file]', Rails.root.join('keyword-samples-file.txt'), id: 'uploads[file]'
       end

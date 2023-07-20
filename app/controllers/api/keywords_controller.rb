@@ -13,5 +13,7 @@ module Api
 
       render json: keyword
     end
+
+    def upload; end
   end
 end
