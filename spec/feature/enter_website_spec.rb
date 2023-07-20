@@ -4,6 +4,6 @@ describe 'Enter website', type: :feature do
   scenario 'without sign in' do
     visit root_path
 
-    expect(page).to have_content('Sign in')
+    expect(page).to have_content('Log in')
   end
 end
