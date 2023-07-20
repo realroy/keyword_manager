@@ -1,12 +1,32 @@
-<div>
-  <%= link_to "Back", keywords_path %>
-  <h1>Upload Keywords</h1>
-</div>
-<p>
-  Instruction: Each keywords must be seperated by new line
-</p>
+<main class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 lg:max-w-[1024px] lg:mx-auto">
+  <%= link_to keywords_path, class: "flex" do %>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+    </svg>
+    <span class="ml-1">
+      Back
+    </span>
+  <% end %>
 
-<%= form_with url: keywords_upload_path, method: :put, multipart: true do |form| %>
-  <%= form.file_field :"uploads[file]", required: true %>
-  <%= form.submit 'Upload' %>
-<% end %>
+  <div class="mt-4 mx-auto">
+    <h1 class="text-3xl">Upload Keywords</h1>
+    <p class="text-sm text-slate-400">
+      Instruction: Each keywords must be seperated by new line
+    <p>
+    
+    <%= form_with url: keywords_upload_path, method: :put, multipart: true, class: 'mt-4 flex flex-col' do |form| %>
+      <%= form.file_field :"uploads[file]",
+            required: true,
+            class: "text-sm text-grey-500
+            file:mr-5 file:py-2 file:px-6
+            file:rounded-full file:border-0
+            file:text-sm file:font-medium
+            file:bg-indigo-50 file:text-indigo-700
+            hover:file:cursor-pointer hover:file:bg-indigo-50
+            hover:file:text-indigo-700" %>
+      <%= form.submit 'Upload', class: "bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium mt-16 cursor-pointer" %>
+    <% end %>
+  </div>
+</main>
+
+
