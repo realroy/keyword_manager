@@ -29,7 +29,7 @@ describe 'User searchs keywords', type: :feature do
       visit keywords_path
 
       within('form[action="/keywords"]') do
-        fill_in 'Search', with: 'YOLO'
+        fill_in 'q', with: 'YOLO'
       end
       click_button 'Search'
     end
@@ -44,7 +44,7 @@ describe 'User searchs keywords', type: :feature do
       login_as(user)
       visit keywords_path
       within('form[action="/keywords"]') do
-        fill_in 'Search', with: 'ap'
+        fill_in 'q', with: 'ap'
       end
 
       click_button 'Search'
