@@ -1,3 +1,18 @@
-<li>
-  <%= link_to local_assigns[:keyword].word, local_assigns[:keyword] %>
-</li>
+<%= link_to local_assigns[:keyword] do %>
+  <li class="flex justify-between gap-x-6 py-5 px-4 border-b border-slate-50 hover:bg-slate-50 transition-all">
+    <div>
+      <span class="border border-slate-200 rounded-full p-1 px-2 text-center mr-2">
+        <%= local_assigns[:keyword_counter] + 1 %>
+      </span>
+      <span>      
+      <%= local_assigns[:keyword].word %>
+      </span>
+
+    </div>
+    <div>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+      </svg>
+    </div>
+  </li>
+<% end %>

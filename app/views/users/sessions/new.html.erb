@@ -41,9 +41,9 @@
     <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
       <p class="mt-10 text-center text-sm text-gray-500">
           Not a member?
-          <%= link_to "Sign up", new_registration_path(resource_name), class: 'font-semibold leading-6 text-indigo-600 hover:text-indigo-500' %>
+        <%= link_to "Sign up", new_registration_path(resource_name), class: 'font-semibold leading-6 text-indigo-600 hover:text-indigo-500' %>
 
-        </p>
+      </p>
     <% end %>
     
   </div>
