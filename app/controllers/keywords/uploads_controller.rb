@@ -2,6 +2,8 @@
 
 module Keywords
   class UploadsController < ApplicationController
+    before_action :authenticate_user!
+
     def show; end
 
     def update
@@ -44,7 +46,6 @@ module Keywords
     end
 
     def scrape(keyword)
-      p "start scraping for #{keyword.word}"
       Puppeteer.launch(headless: true) do |browser|
         page = browser.new_page
         page.viewport = Puppeteer::Viewport.new(width: 1280, height: 800)
@@ -52,7 +53,6 @@ module Keywords
         page.goto('https://google.com/', wait_until: 'domcontentloaded')
         form = page.query_selector('form[action="/search"]')
         q = form.query_selector('*[name="q"]')
-        p "before type #{keyword.word}"
         q.type_text(keyword.word)
 
         page.wait_for_navigation { page.evaluate('document.forms[0].submit()') }
