@@ -5,11 +5,18 @@
 
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'space-y-6' })  do |f| %>
+      <%= render "users/shared/error_messages", resource: resource %>
+
       <div>
         <%= f.label :email, class: "block text-sm font-medium leading-6 text-gray-900" %>
         <div class="mt-2">
           <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
         </div>
+        <% unless resource.errors[:email].empty? %>
+          <p class="mt-2 text-sm text-red-600">
+            <%= resource.errors[:email].join(', ') %>
+          </p>
+        <% end %>
       </div>
 
       <div>
@@ -19,6 +26,11 @@
         <div class="mt-2">
           <%= f.password_field :password, autocomplete: "current-password", required: true, class: 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' %>
         </div>
+        <% unless resource.errors[:password].empty? %>
+          <p class="mt-2 text-sm text-red-600">
+            <%= resource.errors[:password].join(', ') %>
+          </p>
+        <% end %>
       </div>
 
       <div>
@@ -28,6 +40,11 @@
         <div class="mt-2">
           <%= f.password_field :password_confirmation, autocomplete: "new-password", required: true, class: 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6' %>
         </div>
+         <% unless resource.errors[:password_confirmation].empty? %>
+          <p class="mt-2 text-sm text-red-600">
+            <%= resource.errors[:password_confirmation].join(', ') %>
+          </p>
+        <% end %>
       </div>
 
       <div class="action">
