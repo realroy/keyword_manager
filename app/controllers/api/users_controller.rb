@@ -6,7 +6,7 @@ module Api
       user = User.find_for_authentication(email: sign_in_params[:email])
       if user&.valid_password?(sign_in_params[:password])
         payload = { sub: user.id, exp: 4.hours.from_now.to_i }
-        jwt = JWT.encode payload, 'SECRET'
+        jwt = JWT.encode(payload, ENV.fetch('JWT_SECRET'))
 
         render json: { access_token: jwt }
       else

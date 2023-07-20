@@ -8,7 +8,7 @@ RSpec.describe 'Api::KeywordControllers', type: :request do
   let(:keywords) { create_list(:keyword, 3) }
 
   let(:access_token) do
-    JWT.encode({ sub: user.id }, 'SECRET')
+    JWT.encode({ sub: user.id }, ENV.fetch('JWT_SECRET'))
   end
 
   describe 'GET /api/keywords' do

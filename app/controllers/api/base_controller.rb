@@ -13,7 +13,7 @@ module Api
       raise UnauthorizedError, 'Missing authorization header' if request.headers['Authorization'].nil?
 
       token = request.headers['Authorization'].split(' ').last
-      payload = JWT.decode(token, 'SECRET').first
+      payload = JWT.decode(token, ENV.fetch('JWT_SECRET')).first
       User.find(payload['sub'])
     rescue ActiveRecord::RecordNotFound
       raise UnauthorizedError, 'Invalid authorization token'
