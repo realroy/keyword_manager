@@ -1,21 +1,21 @@
 # frozen_string_literal: true
 
 module Api
-  class KeywordsController < ApplicationController
+  class KeywordsController < BaseController
     def index
-      keywords = GetKeywordsForUserService.new(user: User.first, q: params[:q]).call
+      keywords = GetKeywordsForUserService.new(user: current_user!, q: params[:q]).call
 
       render json: keywords
     end
 
     def show
-      keyword = GetKeywordForUserService.new(user: User.first, keyword_id: params[:id]).call
+      keyword = GetKeywordForUserService.new(user: current_user!, keyword_id: params[:id]).call
 
       render json: keyword
     end
 
     def upload
-      keywords = ExtractKeywordsFromFileService.new(file: uploads_params[:file], user: User.first).call
+      keywords = ExtractKeywordsFromFileService.new(file: uploads_params[:file], user: current_user!).call
       keywords.each { |keyword| ScrapeFromKeywordService.new(keyword:).call }
 
       render json: keywords

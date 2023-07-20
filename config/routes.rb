@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     resources :keywords, only: %w[index show] do
       put :upload, on: :collection
     end
+
+    post 'users/sign_in', to: 'users#sign_in'
   end
 
   namespace :keywords do
