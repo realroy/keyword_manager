@@ -68,4 +68,27 @@ RSpec.describe 'Api::Keywords', type: :request do
       end
     end
   end
+
+  describe 'PUT /upload' do
+    context 'when user doesn\'t logged in' do
+      it 'returns http unauthorized' do
+        get api_keyword_path(keywords.first.id)
+
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'when upload file' do
+      it 'return http ok' do
+        file = fixture_file_upload(Rails.root.join('keyword-samples-file.txt'))
+        put upload_api_keywords_path, params: {
+          uploads: {
+            file:
+          }
+        }, headers: { 'Authorization': "Bearer #{access_token}" }
+
+        expect(response).to have_http_status(:ok)
+      end
+    end
+  end
 end
