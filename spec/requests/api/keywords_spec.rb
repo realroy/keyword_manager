@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'jwt'
 
-RSpec.describe 'Api::Keywords', type: :request do
+RSpec.describe 'Api::KeywordControllers', type: :request do
   let(:user) { create(:user) }
   let(:keywords) { create_list(:keyword, 3) }
 
@@ -11,7 +11,7 @@ RSpec.describe 'Api::Keywords', type: :request do
     JWT.encode({ sub: user.id }, 'SECRET')
   end
 
-  describe 'GET /index' do
+  describe 'GET /api/keywords' do
     context 'when user doesn\'t loged in' do
       it 'returns http unauthorized' do
         get api_keywords_path
@@ -38,7 +38,7 @@ RSpec.describe 'Api::Keywords', type: :request do
     end
   end
 
-  describe 'GET /show' do
+  describe 'GET /api/keywords/:id' do
     context 'when user doesn\'t logged in' do
       it 'returns http unauthorized' do
         get api_keyword_path(keywords.first.id)
@@ -69,7 +69,7 @@ RSpec.describe 'Api::Keywords', type: :request do
     end
   end
 
-  describe 'PUT /upload' do
+  describe 'PUT /api/keywords/upload' do
     context 'when user doesn\'t logged in' do
       it 'returns http unauthorized' do
         get api_keyword_path(keywords.first.id)
