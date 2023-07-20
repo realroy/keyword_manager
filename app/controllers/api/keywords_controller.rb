@@ -14,6 +14,20 @@ module Api
       render json: keyword
     end
 
-    def upload; end
+    def upload
+      keywords = ExtractKeywordsFromFileService.new(file: uploads_params[:file], user: User.first).call
+      keywords.each { |keyword| ScrapeFromKeywordService.new(keyword:).call }
+
+      render json: keywords
+    rescue StandardError => e
+      p 'Error', e
+      render json: { error: 'Something went wrong! Please try again.' }, status: :internal_server_error
+    end
+
+    private
+
+    def uploads_params
+      params.require(:uploads).permit(:file)
+    end
   end
 end
