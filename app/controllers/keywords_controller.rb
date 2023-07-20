@@ -5,14 +5,10 @@ class KeywordsController < ApplicationController
 
   def index
     @q = params[:q]
-    @keywords = if @q.present?
-                  current_user.keywords.where('word ILIKE ?', "%#{params[:q]}%")
-                else
-                  current_user.keywords
-                end
+    @keywords = GetKeywordsForUserService.new(user: current_user, q: @q).call
   end
 
   def show
-    @keyword = current_user.keywords.find(params[:id])
+    @keyword = GetKeywordForUserService.new(user: current_user, keyword_id: params[:id]).call
   end
 end
