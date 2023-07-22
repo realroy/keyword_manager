@@ -1,4 +1,32 @@
-# README
+# Keyword Manager
+
+## Installation
+
+1. Install [foreman](https://github.com/ddollar/foreman)
+
+```sh
+gem install foreman
+```
+
+2. Install gems
+
+```sh
+bundle install
+```
+
+3. Copy .env.sample and rename to .env
+
+```sh
+cp .env.sample .env
+```
+
+4. (Optional) Update variable in env
+
+5. Create Database and migrate
+
+```sh
+rails db:create db:migrate
+```
 
 ## Checklist
 
