@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Keyword < ApplicationRecord
-  SCRAPE_STATUSES = { pending: 'pending', success: 'success', failed: 'failed' }.freeze
+  SCRAPE_STATUSES = { pending: 'PENDING', sucess: 'SUCCESS', failed: 'FAILED' }.freeze
 
   enum scrape_status: SCRAPE_STATUSES, default: SCRAPE_STATUSES[:pending]
 
