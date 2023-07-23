@@ -16,7 +16,7 @@ class ScrapeFromKeywordService
 
       save_keyword(extract_data(page))
     rescue StandardError => e
-      logger.error e
+      Rails.logger.error e
       @keyword.scrape_status = Keyword.scrape_statuses[:failed]
     end
   end
