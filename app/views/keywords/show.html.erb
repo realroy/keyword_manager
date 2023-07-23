@@ -10,13 +10,14 @@
 
   <div class="mt-4">
     <h1 class="text-3xl"><%= @keyword.word %></h1>
-    <p class="text-sm text-slate-400">
+     <%= render 'shared/scrape_status_badge', { scrape_status: @keyword.scrape_status } %>
+    <p class="text-sm text-slate-400 mt-5">
       Scraped At:
       <%= time_tag @keyword.updated_at %>
     <p>
   </div>
 
-  <ul class="mt-4 space-y-4">
+  <ul class="mt-8 space-y-4">
     <li>
       <strong>Total Adwords</strong> <span><%= number_with_delimiter @keyword.total_adword %> links</span>
     </li>

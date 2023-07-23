@@ -16,11 +16,12 @@ module Api
 
     def upload
       keywords = ExtractKeywordsFromFileService.new(file: uploads_params[:file], user: current_user!).call
-      keywords.each { |keyword| ScrapeFromKeywordService.new(keyword:).call }
+      ScrapeKeywordsJob.perform_async(keywords.map(&:id))
 
       render json: keywords
     rescue StandardError => e
-      p 'Error', e
+      logger.error e
+
       render json: { error: 'Something went wrong! Please try again.' }, status: :internal_server_error
     end
 

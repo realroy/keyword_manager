@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExtractKeywordsFromFileService
   def initialize(words:, user:)
     @words = words
@@ -5,16 +7,26 @@ class ExtractKeywordsFromFileService
   end
 
   def call
-    @user.user_keywords.destroy_all
-    @user.keywords.destroy_all
+    old_keywords = Keyword.where(word: words)
 
-    keywords = []
     ActiveRecord::Base.transaction do
-      @words.each do |word|
-        keywords << @user.keywords.create!(word:)
-      end
+      @user.user_keywords.destroy_all
+      attach_old_keywords_to_user(old_keywords)
+      create_new_keywords(old_keywords)
     end
 
-    keywords
+    @user.keywords
+  end
+
+  private
+
+  def attach_old_keywords_to_user(old_keywords)
+    old_keywords.update(scrape_status: Keyword.scrape_statuses[:pending])
+    @user.user_keywords.create!(old_keywords.map { |keyword| { keyword: } })
+  end
+
+  def create_new_keywords(old_keywords)
+    new_words = @words - old_keywords.map(&:word)
+    @user.keywords.create!(new_words.map { |word| { word: } })
   end
 end
