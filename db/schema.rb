@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_23_145203) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_23_145921) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,6 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_23_145203) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "scrape_status"
+    t.index ["word"], name: "index_keywords_on_word", unique: true
   end
 
   create_table "user_keywords", force: :cascade do |t|

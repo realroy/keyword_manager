@@ -7,4 +7,6 @@ class Keyword < ApplicationRecord
 
   has_many :user_keywords, inverse_of: :keyword, dependent: :nullify
   has_many :user, through: :user_keywords
+
+  validate :word, presence: true, uniqueness: true
 end
