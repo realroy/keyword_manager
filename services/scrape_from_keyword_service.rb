@@ -13,6 +13,7 @@ class ScrapeFromKeywordService
       fill_form_then_search(page)
 
       @keyword.html = page.content.to_s
+      @keyword.save!
 
       save_keyword(extract_data(page))
     rescue StandardError => e
@@ -48,12 +49,14 @@ class ScrapeFromKeywordService
   end
 
   def save_keyword(data)
+    Rails.logger.debug data
+
     @keyword.total_link = data[:total_link]
     @keyword.total_adword = data[:total_adword]
     @keyword.total_result = data[:total_result]
     @keyword.total_search_time = data[:search_time]
     @keyword.scrape_status = Keyword.scrape_statuses[:success]
 
-    @keyword.save
+    @keyword.save!
   end
 end
