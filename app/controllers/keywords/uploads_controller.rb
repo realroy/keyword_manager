@@ -12,7 +12,7 @@ module Keywords
       @keyword_upload_file = KeywordUploadFile.new(file: uploads_params[:file])
       if @keyword_upload_file.valid?
         keywords = ExtractKeywordsFromFileService.new(words: @keyword_upload_file.words, user: current_user).call
-        keywords.each { |keyword| ScrapeFromKeywordService.new(keyword:).call }
+        ScrapeKeywordsJob.perform_async(keywords.map(&:id))
 
         redirect_to keywords_path, notice: 'Keywords is starting to scrape'
       else
