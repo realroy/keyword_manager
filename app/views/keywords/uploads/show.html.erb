@@ -11,11 +11,17 @@
   <div class="mt-4 mx-auto">
     <h1 class="text-3xl">Upload Keywords</h1>
     <p class="text-sm text-slate-400">
-      Instruction: Each keywords must be seperated by new line
+      Instruction: Each keywords must be seperated by ,
     <p>
     
-    <%= form_with url: keywords_upload_path, method: :put, multipart: true, class: 'mt-4 flex flex-col' do |form| %>
-      <%= form.file_field :"uploads[file]",
+    <%= form_with model: @keyword_upload_file,
+                  url: keywords_upload_path,
+                  method: :put,
+                  multipart: true,
+                  data: { turbo: false },
+                  class: 'mt-4 flex flex-col' do |form| %>
+      <%= form.file_field :"file",
+            accept: ".csv,.txt",
             required: true,
             class: "text-sm text-grey-500
             file:mr-5 file:py-2 file:px-6
@@ -24,6 +30,15 @@
             file:bg-indigo-50 file:text-indigo-700
             hover:file:cursor-pointer hover:file:bg-indigo-50
             hover:file:text-indigo-700" %>
+      <% unless @keyword_upload_file.errors.blank? %>
+        <ul class="mt-4 text-red-500 text-sm">
+          <% @keyword_upload_file.errors.full_messages_for(:file).each do |message| %>
+            <li>
+              <%= message %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
       <%= form.submit 'Upload', class: "bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium mt-16 cursor-pointer" %>
     <% end %>
   </div>

@@ -4,23 +4,27 @@ module Keywords
   class UploadsController < ApplicationController
     before_action :authenticate_user!
 
-    def show; end
+    def show
+      @keyword_upload_file = KeywordUploadFile.new
+    end
 
     def update
-      keywords = ExtractKeywordsFromFileService.new(file: uploads_params[:file], user: current_user).call
-      ScrapeKeywordsJob.perform_async(keywords.map(&:id))
+      @keyword_upload_file = KeywordUploadFile.new(file: uploads_params[:file])
 
-      redirect_to keywords_path, notice: 'Your keywords are starting to scrape, Please wait a few minutes.'
-    rescue StandardError => e
-      logger.error e
+      if @keyword_upload_file.valid?
+        keywords = ExtractKeywordsFromFileService.new(words: @keyword_upload_file.words, user: current_user).call
+        keywords.each { |keyword| ScrapeFromKeywordService.new(keyword:).call }
 
-      render 'show', error: 'Something went wrong! Please try again.'
+        redirect_to keywords_path
+      else
+        render 'show', alert: 'Something went wrong! Please try again.'
+      end
     end
 
     private
 
     def uploads_params
-      params.require(:uploads).permit(:file)
+      params.require(:keyword_upload_file).permit(:file)
     end
   end
 end
