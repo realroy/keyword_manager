@@ -12,8 +12,14 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p> 
-    <p class="alert"><%= alert %></p>
+    <% unless notice.nil? %>
+      <p class="text-white bg-teal-500 p-2 text-center"><%= notice %></p>
+    <% end %>
+    
+    <% unless alert.nil? %> 
+      <p class="text-white bg-red-500 p-2 text-center"><%= alert %></p>
+    <% end %>
+    
     <%= render 'shared/navbar' %>
     
     <%= yield %>
