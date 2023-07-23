@@ -1,0 +1,4 @@
+<div class="flex items-center text-xs <%= scrape_status_class(local_assigns[:scrape_status]) %>">
+  <div class="w-1 p-1 h-1 rounded-full mr-1 <%= scrape_status_badge_class(local_assigns[:scrape_status]) %>"></div>
+  <%= local_assigns[:scrape_status].capitalize %>
+</div>

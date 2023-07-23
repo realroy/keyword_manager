@@ -8,14 +8,13 @@ module Keywords
 
     def update
       keywords = ExtractKeywordsFromFileService.new(file: uploads_params[:file], user: current_user).call
-      keywords.each { |keyword| ScrapeFromKeywordService.new(keyword:).call }
+      ScrapeKeywordsJob.perform_async(keywords.map(&:id))
 
-      redirect_to keywords_path
+      redirect_to keywords_path, notice: 'Your keywords are starting to scrape, Please wait a few minutes.'
     rescue StandardError => e
-      p 'Error', e
+      logger.error e
 
-      flash[:error] = 'Something went wrong! Please try again.'
-      render 'show'
+      render 'show', error: 'Something went wrong! Please try again.'
     end
 
     private
