@@ -7,7 +7,7 @@ class ExtractKeywordsFromFileService
   end
 
   def call
-    old_keywords = Keyword.where(word: words)
+    old_keywords = Keyword.where(word: @words)
 
     ActiveRecord::Base.transaction do
       @user.user_keywords.destroy_all
