@@ -21,7 +21,7 @@ class ExtractKeywordsFromFileService
 
   def attach_old_keywords_to_user(old_keywords)
     old_keywords.update(scrape_status: Keyword.scrape_statuses[:pending])
-    @user.user_keywords.create!(old_keywords.map { |keyword| { keyword: } })
+    @user.user_keywords.where(keywords: old_keywords).first_or_create!(old_keywords.map { |keyword| { keyword: } })
   end
 
   def create_new_keywords(old_keywords)
