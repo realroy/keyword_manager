@@ -21,7 +21,7 @@ describe 'User upload keywords file', type: :feature do
 
     it 'should redirect to keywords path' do
       within("form[action=\"#{keywords_upload_path}\"]") do
-        attach_file 'uploads[file]', Rails.root.join('keyword-samples-file.txt'), id: 'uploads[file]'
+        attach_file 'uploads[file]', Rails.root.join('keyword-samples-file.csv'), id: 'uploads[file]'
       end
 
       click_button 'Upload'
