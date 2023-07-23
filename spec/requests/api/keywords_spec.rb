@@ -80,7 +80,7 @@ RSpec.describe 'Api::KeywordControllers', type: :request do
 
     context 'when upload file' do
       it 'return http ok' do
-        file = fixture_file_upload(Rails.root.join('keyword-samples-file.txt'))
+        file = fixture_file_upload(Rails.root.join('keyword-samples-file.csv'))
         put upload_api_keywords_path, params: {
           uploads: {
             file:
