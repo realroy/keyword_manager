@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GetKeywordForUserService
   def initialize(user:, keyword_id:)
     @user = user

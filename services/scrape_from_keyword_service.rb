@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ScrapeFromKeywordService
   def initialize(keyword:)
     @keyword = keyword
