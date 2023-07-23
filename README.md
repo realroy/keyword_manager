@@ -1,4 +1,39 @@
-# README
+# Keyword Manager
+
+## Requirements
+
+- Ruby 3.2.2
+- Redis
+- Postgres 14+
+- Chrome
+
+## Installation
+
+1. Install [foreman](https://github.com/ddollar/foreman)
+
+```sh
+gem install foreman
+```
+
+2. Install gems
+
+```sh
+bundle install
+```
+
+3. Copy .env.sample and rename to .env
+
+```sh
+cp .env.sample .env
+```
+
+4. (Optional) Update variable in env
+
+5. Create Database and migrate
+
+```sh
+rails db:create db:migrate
+```
 
 ## Checklist
 
