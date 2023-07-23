@@ -10,19 +10,29 @@ class ScrapeFromKeywordService
       page = browser.new_page
       page.viewport = Puppeteer::Viewport.new(width: 1280, height: 800)
 
-      page.goto('https://google.com/', wait_until: 'domcontentloaded')
-      form = page.query_selector('form[action="/search"]')
-      form.query_selector('*[name="q"]').type_text(@keyword.word)
-
-      page.wait_for_navigation { page.evaluate('document.forms[0].submit()') }
+      fill_form_then_search(page)
 
       @keyword.html = page.content.to_s
 
       save_keyword(extract_data(page))
+    rescue StandardError => e
+      logger.error e
+      @keyword.scrape_status = Keyword.scrape_statuses[:failed]
     end
   end
 
   private
+
+  def fill_form_then_search(page)
+    page.goto('https://google.com/', wait_until: 'domcontentloaded')
+
+    form = page.query_selector('form[action="/search"]')
+    form.query_selector('*[name="q"]').type_text(@keyword.word)
+
+    page.wait_for_navigation { page.evaluate('document.forms[0].submit()') }
+
+    page
+  end
 
   def extract_data(page)
     raw_search_result = page.query_selector('#result-stats')
@@ -42,6 +52,7 @@ class ScrapeFromKeywordService
     @keyword.total_adword = data[:total_adword]
     @keyword.total_result = data[:total_result]
     @keyword.total_search_time = data[:search_time]
+    @keyword.scrape_status = Keyword.scrape_statuses[:success]
 
     @keyword.save
   end
