@@ -10,7 +10,6 @@ class ExtractKeywordsFromFileService
     old_keywords = Keyword.where(word: @words)
 
     ActiveRecord::Base.transaction do
-      @user.user_keywords.destroy_all
       attach_old_keywords_to_user(old_keywords)
       create_new_keywords(old_keywords)
     end
