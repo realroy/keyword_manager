@@ -1,5 +1,12 @@
 # Keyword Manager
 
+## Requirements
+
+- Ruby 3.2.2
+- Redis
+- Postgres 14+
+- Chrome
+
 ## Installation
 
 1. Install [foreman](https://github.com/ddollar/foreman)
