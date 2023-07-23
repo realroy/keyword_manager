@@ -14,7 +14,7 @@ module Keywords
         keywords = ExtractKeywordsFromFileService.new(words: @keyword_upload_file.words, user: current_user).call
         keywords.each { |keyword| ScrapeFromKeywordService.new(keyword:).call }
 
-        redirect_to keywords_path
+        redirect_to keywords_path, notice: 'Keywords is starting to scrape'
       else
         render 'show', alert: 'Something went wrong! Please try again.'
       end
