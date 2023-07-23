@@ -11,11 +11,12 @@
   <div class="mt-4 mx-auto">
     <h1 class="text-3xl">Upload Keywords</h1>
     <p class="text-sm text-slate-400">
-      Instruction: Each keywords must be seperated by new line
+      Instruction: Each keywords must be seperated by ','
     <p>
     
     <%= form_with url: keywords_upload_path, method: :put, multipart: true, class: 'mt-4 flex flex-col' do |form| %>
       <%= form.file_field :"uploads[file]",
+            accept: ".csv,.txt",
             required: true,
             class: "text-sm text-grey-500
             file:mr-5 file:py-2 file:px-6
