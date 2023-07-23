@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ExtractKeywordsFromFileService
   def initialize(file:, user:)
     @file = file
@@ -5,11 +7,17 @@ class ExtractKeywordsFromFileService
   end
 
   def call
-    new_words = extract_words_form_upload_file
-    @user.user_keywords.destroy_all
-    @user.keywords.destroy_all
+    words = extract_words_form_upload_file
 
-    create_new_keywords(new_words)
+    old_keywords = Keyword.where(word: words)
+
+    ActiveRecord::Base.transaction do
+      @user.user_keywords.destroy_all
+      attach_old_keywords_to_user(old_keywords)
+      create_new_keywords(old_keywords, words)
+    end
+
+    @user.keywords
   end
 
   private
@@ -19,14 +27,12 @@ class ExtractKeywordsFromFileService
     raw_file.split("\n").map(&:strip)
   end
 
-  def create_new_keywords(new_words)
-    keywords = []
-    ActiveRecord::Base.transaction do
-      new_words.each do |new_word|
-        keywords << @user.keywords.create!(word: new_word)
-      end
-    end
+  def attach_old_keywords_to_user(old_keywords)
+    @user.user_keywords.create!(old_keywords.map { |keyword| { keyword: } })
+  end
 
-    keywords
+  def create_new_keywords(old_keywords, words)
+    new_words = words - old_keywords.map(&:word)
+    @user.keywords.create!(new_words.map { |word| { word: } })
   end
 end
