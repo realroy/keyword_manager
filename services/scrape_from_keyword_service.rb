@@ -15,10 +15,10 @@ class ScrapeFromKeywordService
       @keyword.html = page.content.to_s
 
       save_keyword(extract_data(page))
-    rescue StandardError => e
-      Rails.logger.error e
-      @keyword.scrape_status = Keyword.scrape_statuses[:failed]
     end
+  rescue StandardError => e
+    Rails.logger.error e
+    @keyword.scrape_status_failed!
   end
 
   private
@@ -54,6 +54,6 @@ class ScrapeFromKeywordService
     @keyword.total_search_time = data[:search_time]
     @keyword.scrape_status = Keyword.scrape_statuses[:success]
 
-    @keyword.save
+    @keyword.save!
   end
 end
