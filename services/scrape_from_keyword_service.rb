@@ -13,10 +13,10 @@ class ScrapeFromKeywordService
       fill_form_then_search(page)
       save_content(page)
       save_keyword(extract_data(page))
-    rescue StandardError => e
-      Rails.logger.error e
-      @keyword.scrape_status_failed!
     end
+  rescue StandardError => e
+    Rails.logger.error e
+    @keyword.scrape_status_failed!
   end
 
   private
