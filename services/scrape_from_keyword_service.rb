@@ -11,9 +11,7 @@ class ScrapeFromKeywordService
       page.viewport = Puppeteer::Viewport.new(width: 1280, height: 800)
 
       fill_form_then_search(page)
-
-      @keyword.html = page.content.to_s
-
+      save_content(page)
       save_keyword(extract_data(page))
     end
   rescue StandardError => e
@@ -47,7 +45,14 @@ class ScrapeFromKeywordService
     }
   end
 
+  def save_content(page)
+    @keyword.html = page.content.to_s
+    @keyword.save
+  end
+
   def save_keyword(data)
+    Rails.logger.debug data
+
     @keyword.total_link = data[:total_link]
     @keyword.total_adword = data[:total_adword]
     @keyword.total_result = data[:total_result]
